@@ -2,6 +2,8 @@ import React,{Component} from 'react'
 import {List,Avatar,Menu} from 'antd';
 import './index.less'
 import Content from '../../component/content'
+import {connect} from "react-redux"
+import {INFO} from '../../actionTypes/action'
 const data = [
     {
         title: 'Ant Design Title 1',
@@ -22,10 +24,26 @@ const data = [
         title: 'Ant Design Title 4',
     }
 ];
+const states=()=>({
+      yy:""
+});
+const dispatchFn=(dispath)=>({
+      test(){
+          dispath({
+             type:INFO,
+             key:"login",
+             params:{name:"test"}
+          })
+      }
+});
+@connect(states,dispatchFn)
 class Index extends Component{
     state = {
         current: 'all',
     };
+    componentWillMount(){
+        this.props.test();
+    }
     handleClick=(e)=>{
          this.setState({
              current:e.key
